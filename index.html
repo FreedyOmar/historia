@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diario</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Times New Roman', serif;
+}
+
+body{
+height:100vh;
+background:linear-gradient(#4da6ff,#cce6ff);
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+}
+
+.scene{
+perspective:3000px;
+}
+
+.book{
+width:360px;
+height:500px;
+position:relative;
+transform-style:preserve-3d;
+}
+
+/* ===== PORTADA CON IMAGEN ===== */
+.cover{
+position:absolute;
+width:100%;
+height:100%;
+
+/* 🔥 CAMBIA ESTA IMAGEN */
+background:url("/01.jpg") center/cover no-repeat;
+
+border-radius:8px;
+box-shadow:
+0 30px 60px rgba(0,0,0,.4),
+inset -6px -6px 12px rgba(0,0,0,.2);
+
+display:flex;
+flex-direction:column;
+justify-content:flex-end;
+align-items:center;
+color:white;
+text-align:center;
+padding:30px;
+z-index:999;
+transform-origin:left;
+transition:1.5s cubic-bezier(.77,0,.175,1);
+}
+
+.cover::after{
+content:"";
+position:absolute;
+right:-10px;
+top:0;
+width:10px;
+height:100%;
+background:linear-gradient(to right,#00000055,#00000022);
+border-radius:0 8px 8px 0;
+}
+
+.cover button{
+margin-top:10px;
+padding:12px 24px;
+border:none;
+border-radius:20px;
+background:white;
+color:#ff2e6e;
+cursor:pointer;
+font-size:16px;
+}
+
+/* ===== PAGINAS ===== */
+.page{
+position:absolute;
+width:100%;
+height:100%;
+background:linear-gradient(to right,#fff,#fdf6f0);
+border-radius:8px;
+padding:45px;
+color:#333;
+box-shadow:
+0 15px 40px rgba(0,0,0,.2),
+inset -3px 0 8px rgba(0,0,0,.08);
+
+transform-origin:left;
+transition:1.2s cubic-bezier(.77,0,.175,1);
+backface-visibility:hidden;
+}
+
+.page h2{
+color:#ff3d7f;
+margin-bottom:20px;
+}
+
+.page::after{
+content:"";
+position:absolute;
+top:0;
+right:0;
+width:40px;
+height:100%;
+background:linear-gradient(to left,rgba(0,0,0,.12),transparent);
+border-radius:0 8px 8px 0;
+}
+
+.next{
+position:absolute;
+bottom:20px;
+right:20px;
+background:#ff4d88;
+color:white;
+border:none;
+padding:10px 18px;
+border-radius:20px;
+cursor:pointer;
+}
+
+.final{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%) scale(0);
+color:white;
+font-size:40px;
+text-shadow:0 0 20px white;
+transition:1s;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="scene">
+<div class="book">
+
+<div class="cover" id="cover">
+<h1>Historia</h1>
+<button onclick="openBook()">Abrir</button>
+</div>
+
+<!-- PAGINAS -->
+<div class="page"><h2>1</h2><p class="type"></p><button class="next">Siguiente</button></div>
+<div class="page"><h2>2</h2><p class="type"></p><button class="next">Siguiente</button></div>
+<div class="page"><h2>3</h2><p class="type"></p><button class="next">Siguiente</button></div>
+<div class="page"><h2>4</h2><p class="type"></p><button class="next">Siguiente</button></div>
+<div class="page"><h2>5</h2><p class="type"></p><button class="next">Siguiente</button></div>
+<div class="page"><h2>6</h2><p class="type"></p><button class="next">Siguiente</button></div>
+<div class="page"><h2>7</h2><p class="type"></p><button class="next">Siguiente</button></div>
+<div class="page"><h2>8</h2><p class="type"></p><button class="next">Siguiente</button></div>
+<div class="page"><h2>9</h2><p class="type"></p><button class="next">Siguiente</button></div>
+<div class="page"><h2>10</h2><p class="type"></p><button class="next">Siguiente</button></div>
+<div class="page"><h2>11</h2><p class="type"></p><button class="next">Siguiente</button></div>
+<div class="page"><h2>12</h2><p class="type"></p><button class="next">Siguiente</button></div>
+<div class="page"><h2>13</h2><p class="type"></p><button class="next">Siguiente</button></div>
+<div class="page"><h2>14</h2><p class="type"></p><button class="next">Siguiente</button></div>
+<div class="page"><h2>15</h2><p class="type"></p><button class="next">Siguiente</button></div>
+<div class="page"><h2>16</h2><p class="type"></p><button class="next">Siguiente</button></div>
+<div class="page"><h2>17</h2><p class="type"></p><button class="next">Siguiente</button></div>
+<div class="page"><h2>18</h2><p class="type"></p><button class="next">Siguiente</button></div>
+<div class="page"><h2>19
+</h2><p class="type"></p><button class="next">Final</button></div>
+
+</div>
+</div>
+
+<div class="final" id="final">✨ Me gustas ✨</div>
+
+<script>
+
+const story = [
+"Todo empezó como algo normal…",
+"Pero un dia de la nada…",
+"Algo cambió cuando apareciste tú.",
+"No sé exactamente cuándo pasó… o como paso",
+"Pero empecé a notar tu forma de ser.",
+"Tu manera de hablar.",
+"Tu sonrisa y el brillo magico de tus ojos.",
+"Y cómo me haces sentir diferente al estar cerca de ti.",
+"Me di cuenta que pensaba en ti, mucho mas de lo normal.",
+"Más de lo que imaginé.",
+"Y eso me hizo sonreír.",
+"Porque entendí algo importante. Que si fuera posible tener cinco vidas, me encantaria que Dios me permitiera enamorarme de ti en todas ellas.",
+"Me gustas.este sentimiento fue como dormirce, al principio fue lento y luego profundamente. Y Aunque es muy probable que tu nisiquiera pienses en mi",
+"Quería decírtelo. Y me disculpo por hacerlo de esta manera pero, no soy muy bueno hablando de sentimientos, lo cual es raro debido a lo sentimental que puedo ser",
+"Eres una chica maravillosa y Dios te usa de grandes maneras, en todo el sentido de la palabra eres una chica especial",
+"Repito lo mas probable es que tu no pienses lo mismo de mi, o tal vez nisiquiera estes pensando en algo como enamorarte",
+"Pero queria ser sincero en lo que siento por ti, No quiero causarte problemas o generarte incomodidad.",
+"solo puedo pedirte que me digas si tan solo tengo una minima oportunidad de acercarme un poco mas a ti",
+"Y no me malentidas, no pido que digas si te gusto o no, solo quiero conocerte mas. y lo demas estara en manos de Dios"
+];
+
+let pages = document.querySelectorAll(".page");
+let texts = document.querySelectorAll(".type");
+let buttons = document.querySelectorAll(".next");
+
+pages.forEach((p,i)=>{
+p.style.zIndex = pages.length - i;
+});
+
+function typeWriter(element, text, speed=35){
+element.innerHTML="";
+let i=0;
+let timer=setInterval(()=>{
+element.innerHTML += text.charAt(i);
+i++;
+if(i>=text.length) clearInterval(timer);
+},speed);
+}
+
+let pageIndex=0;
+
+function openBook(){
+document.getElementById("cover").style.transform="rotateY(-180deg)";
+typeWriter(texts[0], story[0]);
+}
+
+buttons.forEach((btn,i)=>{
+btn.onclick=()=>{
+pages[i].style.transform="rotateY(-180deg)";
+pageIndex++;
+
+if(pageIndex < story.length){
+setTimeout(()=>{
+typeWriter(texts[pageIndex], story[pageIndex]);
+},500);
+}else{
+setTimeout(()=>{
+document.getElementById("final").style.transform="translate(-50%,-50%) scale(1)";
+},800);
+}
+};
+});
+
+</script>
+
+</body>
+</html>
