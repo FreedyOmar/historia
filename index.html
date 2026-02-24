@@ -22,9 +22,7 @@ align-items:center;
 overflow:hidden;
 }
 
-.scene{
-perspective:3000px;
-}
+.scene{ perspective:3000px; }
 
 .book{
 width:360px;
@@ -37,33 +35,21 @@ transform-style:preserve-3d;
 position:absolute;
 width:100%;
 height:100%;
-background:url("/01.jpg") center/cover no-repeat;
+background:url("/02.webp") center/cover no-repeat;
 border-radius:8px;
-box-shadow:
-0 30px 60px rgba(0,0,0,.4),
-inset -6px -6px 12px rgba(0,0,0,.2);
-
+box-shadow:0 30px 60px rgba(0,0,0,.4);
 display:flex;
 flex-direction:column;
 justify-content:flex-end;
 align-items:center;
-color:white;
+color:#ffffff; /* rosa pastel romántico */
 text-align:center;
 padding:30px;
 z-index:999;
 transform-origin:left;
 transition:1.5s cubic-bezier(.77,0,.175,1);
-}
-
-.cover::after{
-content:"";
-position:absolute;
-right:-10px;
-top:0;
-width:10px;
-height:100%;
-background:linear-gradient(to right,#00000055,#00000022);
-border-radius:0 8px 8px 0;
+text-shadow: 0 0 10px rgba(0, 0, 0, 0.8),
+             2px 2px 8px rgba(0,0,0,0.6);
 }
 
 .cover button{
@@ -85,10 +71,7 @@ background:linear-gradient(to right,#fff,#fdf6f0);
 border-radius:8px;
 padding:45px;
 color:#333;
-box-shadow:
-0 15px 40px rgba(0,0,0,.2),
-inset -3px 0 8px rgba(0,0,0,.08);
-
+box-shadow:0 15px 40px rgba(0,0,0,.2);
 transform-origin:left;
 transition:1.2s cubic-bezier(.77,0,.175,1);
 backface-visibility:hidden;
@@ -99,28 +82,18 @@ color:#ff3d7f;
 margin-bottom:20px;
 }
 
-.page::after{
-content:"";
-position:absolute;
-top:0;
-right:0;
-width:40px;
-height:100%;
-background:linear-gradient(to left,rgba(0,0,0,.12),transparent);
-border-radius:0 8px 8px 0;
-}
-
-.next{
+.next, .prev{
 position:absolute;
 bottom:20px;
-right:20px;
-background:#ff4d88;
-color:white;
+padding:8px 16px;
 border:none;
-padding:10px 18px;
 border-radius:20px;
 cursor:pointer;
+color:white;
 }
+
+.next{ right:20px; background:#ff4d88; }
+.prev{ left:20px; background:#6c757d; }
 
 .final{
 position:absolute;
@@ -128,11 +101,11 @@ top:50%;
 left:50%;
 transform:translate(-50%,-50%) scale(0);
 color:white;
-font-size:40px;
+font-size:38px;
 text-shadow:0 0 20px white;
 transition:1s;
+text-align:center;
 }
-
 </style>
 </head>
 
@@ -142,103 +115,138 @@ transition:1s;
 <div class="book">
 
 <div class="cover" id="cover">
-<h1>Historia</h1>
+<h1>Una Historia</h1>
 <button onclick="openBook()">Abrir</button>
 </div>
 
-<!-- PAGINAS -->
-<div class="page"><h2>1</h2><p class="type"></p><button class="next">Siguiente</button></div>
-<div class="page"><h2>2</h2><p class="type"></p><button class="next">Siguiente</button></div>
-<div class="page"><h2>3</h2><p class="type"></p><button class="next">Siguiente</button></div>
-<div class="page"><h2>4</h2><p class="type"></p><button class="next">Siguiente</button></div>
-<div class="page"><h2>5</h2><p class="type"></p><button class="next">Siguiente</button></div>
-<div class="page"><h2>6</h2><p class="type"></p><button class="next">Siguiente</button></div>
-<div class="page"><h2>7</h2><p class="type"></p><button class="next">Siguiente</button></div>
-<div class="page"><h2>8</h2><p class="type"></p><button class="next">Siguiente</button></div>
-<div class="page"><h2>9</h2><p class="type"></p><button class="next">Siguiente</button></div>
-<div class="page"><h2>10</h2><p class="type"></p><button class="next">Siguiente</button></div>
-<div class="page"><h2>11</h2><p class="type"></p><button class="next">Siguiente</button></div>
-<div class="page"><h2>12</h2><p class="type"></p><button class="next">Siguiente</button></div>
-<div class="page"><h2>13</h2><p class="type"></p><button class="next">Siguiente</button></div>
-<div class="page"><h2>14</h2><p class="type"></p><button class="next">Siguiente</button></div>
-<div class="page"><h2>15</h2><p class="type"></p><button class="next">Siguiente</button></div>
-<div class="page"><h2>16</h2><p class="type"></p><button class="next">Siguiente</button></div>
-<div class="page"><h2>17</h2><p class="type"></p><button class="next">Siguiente</button></div>
-<div class="page"><h2>18</h2><p class="type"></p><button class="next">Siguiente</button></div>
-<div class="page"><h2>19</h2><p class="type"></p><button class="next">Siguiente</button></div>
-<div class="page"><h2>20
-</h2><p class="type"></p><button class="next">Final</button></div>
+<div id="pages"></div>
 
 </div>
 </div>
 
-<div class="final" id="final">✨ Me gustas mucho ✨</div>
+<div class="final" id="final">
+✨ Me gustas mucho ✨
+</div>
 
 <script>
 
 const story = [
-"Todo empezó como algo normal…sin ser algo planeado,es como si Dios asi lo hubeira querido, y dicen que las mejores cosas surgen asi",
-"Sonara como un cuento pero, un dia de la nada…",
-"Algo cambió cuando apareciste tú. no podria explicar con palabras que fue lo que sucedio",
-"No sé exactamente cuándo pasó… o como paso",
-"Pero empecé a notar tu forma de ser. ver esa hermosa forma que tienes para hablar con los demas",
-"Tu manera de hablar, de convivir con los demas, de como Dios te usa para cosas maravillosas",
-"Tu sonrisa tan encantadora y el brillo magico de tus ojos,me deslubraron",
-"Y cómo me haces sentir diferente al estar cerca de ti, es un sentimimento que no se puede describir con palabras",
-"Me di cuenta que pensaba en ti, mucho mas de lo normal.",
-"Más de lo que imaginé, que algun dia pensaria en alguien.",
-"Y eso me hizo sonreír, por que note lo especial que te volviste para mi, note que pase lo que pase quiero verte sonreir",
-"y eso solo puede significar una cosa, la cual intuyo que ya supones..... Si, me gustas",
-"Porque entendí algo importante. Que si fuera posible tener cinco vidas, me encantaria que Dios me permitiera enamorarme de ti en todas ellas.",
-"Me gustas.este sentimiento fue como dormirce, al principio fue lento y luego profundamente. Y Aunque es muy probable que tu nisiquiera pienses en mi",
-"Quería decírtelo. Y me disculpo por hacerlo de esta manera pero, no soy muy bueno hablando de sentimientos, lo cual es raro debido a lo sentimental que puedo ser",
-"Eres una chica maravillosa y Dios te usa de grandes maneras, en todo el sentido de la palabra eres una chica especial",
-"Repito lo mas probable es que tu no pienses lo mismo de mi, o tal vez nisiquiera estes pensando en algo como enamorarte",
-"Pero queria ser sincero en lo que siento por ti, No quiero causarte problemas o generarte incomodidad.",
-"solo puedo pedirte que me digas si tan solo tengo una minima oportunidad de acercarme un poco mas a ti",
-"Y no me malentidas, no pido que digas si te gusto o no, solo quiero conocerte mas. y lo demas estara en manos de Dios"
+"Todo comenzó sin planearlo. Como si Dios hubiera decidido cruzar nuestros caminos en el momento exacto, en el día preciso, en el instante que Él sabía que sería perfecto. A veces creemos que las cosas simplemente pasan… pero hay encuentros que tienen propósito.",
+
+"Al principio parecía algo normal. Una conversación más, un saludo más. Pero poco a poco algo empezó a cambiar dentro de mí, de una manera silenciosa pero profunda.",
+
+"Empecé a notar tu forma de ser, tu manera de hablar, de convivir con los demás, la dulzura con la que te expresas y la firmeza con la que defiendes lo que crees. También comencé a admirar cómo Dios te usa para cosas maravillosas, cómo a través de ti bendice a otros sin que muchas veces tú misma lo notes.",
+
+"Hay algo en ti que transmite paz. Y no es algo superficial, es algo que viene desde dentro, algo que refleja lo que hay en tu corazón. Es esa luz interior que se siente incluso en los pequeños detalles.",
+
+"Tu sonrisa tan encantadora, capaz de iluminar incluso los días más grises, y el brillo mágico de tus ojos —que parecen guardar un universo entero de sueños y bondad— me deslumbraron desde el primer momento en que realmente te miré.",
+
+"La Biblia dice en Proverbios 4:23: ‘Sobre toda cosa guardada, guarda tu corazón; porque de él mana la vida.’ Y el tuyo… el tuyo es como el sol en la mañana: cálido, constante y lleno de luz.",
+
+"También entendí que el amor verdadero no es solo emoción, es decisión. Como dice La Biblia en Primera carta a los Corintios 13:4-7: ‘El amor es paciente, es bondadoso… todo lo cree, todo lo espera, todo lo soporta.’ Y aunque aún no exista un ‘nosotros’, en mi corazón ya existe la decisión de quererte así: con paciencia mientras descubres lo que sientes, con bondad sin presiones, creyendo en la posibilidad de algo hermoso, esperando sin prisa… pero con la certeza de que lo que siento es real.",
+
+"Y no sé en qué momento comencé a desear ser parte de tu historia, acompañarte, apoyarte y verte crecer en todo lo que Dios tiene preparado para ti.",
+
+"Porque entendí algo importante. Que si fuera posible tener cinco vidas, me encantaría que Dios me permitiera enamorarme de ti en todas ellas.",
+
+"En La Biblia, en Libro de Jeremías 29:11, dice: ‘Porque yo sé los planes que tengo para ustedes, planes de bien y no de mal.’ Y sin intentar entenderlo todo, me gusta pensar que conocerte fue una de esas cosas buenas que llegan cuando el corazón ya estaba listo para recibirlas.",
+
+"Me gustas. Pero más que eso, me importas. Me importa tu bienestar, tu tranquilidad y tus sueños.",
+
+"Tal vez no esperabas leer algo así. Tal vez no lo imaginabas. Y está bien.",
+
+"No quiero presionarte ni incomodarte. Solo quería ser sincero con lo que hay en mi corazón.",
+
+"Si existe una pequeña oportunidad de conocerte más, me encantaría aprovecharla. Sin forzar nada, dejando que Dios guíe cada paso.",
+
+"Y si la respuesta no es la que espero, aun así te agradeceré el tiempo, las risas y esos momentos simples que, sin que lo supieras, se volvieron importantes para mí.",
+
+"Porque hay personas que llegan para quedarse… y otras que llegan para enseñarnos algo hermoso.",
+
+"Yo solo sé que conocerte fue una bendición.",
+
+"Y que si Dios permitió este encuentro, confío en que Él sabrá qué hacer con lo que siento.",
+
+"Sea cual sea el camino, quiero que sepas que lo que siento es sincero.",
+
+"Gracias por existir, por tu manera tan especial de ser, por la forma en que hablas, sonríes y transmites vida… y por ser exactamente como eres.",
+
+"Y que esta historia, pase lo que pase, comenzó con algo verdadero."
 ];
+
+const container = document.getElementById("pages");
+
+story.forEach((_,i)=>{
+container.innerHTML += `
+<div class="page">
+<h2>${i+1}</h2>
+<p class="type"></p>
+<button class="prev">Volver</button>
+<button class="next">${i==story.length-1?"Final":"Siguiente"}</button>
+</div>
+`;
+});
 
 let pages = document.querySelectorAll(".page");
 let texts = document.querySelectorAll(".type");
-let buttons = document.querySelectorAll(".next");
+let nextBtns = document.querySelectorAll(".next");
+let prevBtns = document.querySelectorAll(".prev");
 
 pages.forEach((p,i)=>{
-p.style.zIndex = pages.length - i;
+p.style.zIndex = story.length - i;
 });
 
-function typeWriter(element, text, speed=35){
+let currentPage = 0;
+let typingInterval;
+
+function typeWriter(element, text, speed=25){
+clearInterval(typingInterval);
 element.innerHTML="";
 let i=0;
-let timer=setInterval(()=>{
+typingInterval=setInterval(()=>{
 element.innerHTML += text.charAt(i);
 i++;
-if(i>=text.length) clearInterval(timer);
+if(i>=text.length) clearInterval(typingInterval);
 },speed);
 }
-
-let pageIndex=0;
 
 function openBook(){
 document.getElementById("cover").style.transform="rotateY(-180deg)";
 typeWriter(texts[0], story[0]);
 }
 
-buttons.forEach((btn,i)=>{
-btn.onclick=()=>{
-pages[i].style.transform="rotateY(-180deg)";
-pageIndex++;
+nextBtns.forEach((btn)=>{
+btn.addEventListener("click",()=>{
 
-if(pageIndex < story.length){
+if(currentPage < pages.length){
+pages[currentPage].style.transform="rotateY(-180deg)";
+currentPage++;
+}
+
+if(currentPage < story.length){
 setTimeout(()=>{
-typeWriter(texts[pageIndex], story[pageIndex]);
-},500);
+typeWriter(texts[currentPage], story[currentPage]);
+},400);
 }else{
 setTimeout(()=>{
 document.getElementById("final").style.transform="translate(-50%,-50%) scale(1)";
-},800);
+},600);
 }
-};
+
+});
+});
+
+prevBtns.forEach((btn)=>{
+btn.addEventListener("click",()=>{
+
+if(currentPage > 0){
+currentPage--;
+pages[currentPage].style.transform="rotateY(0deg)";
+document.getElementById("final").style.transform="translate(-50%,-50%) scale(0)";
+typeWriter(texts[currentPage], story[currentPage]);
+}
+
+});
 });
 
 </script>
